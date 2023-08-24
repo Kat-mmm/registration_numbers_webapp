@@ -1,0 +1,132 @@
+@font-face {
+    font-family: 'Acumin Pro';
+    src: url('./fonts/GerhanaMatahari-gxWvY.otf') format('woff2'),
+         url('./fonts/GerhanaMatahari-gxWvY.otf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    font-family: 'Acumin Pro', Helvetica, sans-serif;
+    font-size: large;
+    background-color: antiquewhite;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.container, .container-1{
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    gap: 15px;
+    width: 60%;
+    height: fit-content;
+    padding: 40px;
+    height: fit-content;
+    background-color: rgba(255, 255, 255, .15);  
+    backdrop-filter: blur(15px);
+    color: black;
+    border-radius: 10px;
+}
+
+
+.top form{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.bottom form{
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* align-self: center; */
+    gap: 15px;
+}
+
+p{
+    margin-bottom: -15px;
+}
+
+.eg{
+    margin-bottom: 20px;
+}
+
+.reg-input, select, .reg-input2{
+    width: 70%;
+    font-family:'Acumin Pro', Helvetica, sans-serif;
+    padding: 6px;
+}
+
+.add-btn, .clear-btn, .filter-btn, .add-btn2, .clear-btn2, .filter-btn2{
+    width: 20%;
+    font-family: 'Acumin Pro', Helvetica, sans-serif;
+    padding: 4px;
+    border: 2px solid black;
+    background-color: transparent;
+    border-radius: 6px;
+}
+
+.add-btn:hover, .clear-btn:hover, .filter-btn:hover, .add-btn2:hover, .clear-btn2:hover, .filter-btn2:hover{
+    cursor: pointer;
+}
+
+.btns{
+    display: flex;
+    gap: 17px;
+    padding: 6px;
+}
+
+.plates, .plates2{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+}
+
+.plates .item, .plates2 .item{
+    width: fit-content;
+    height: fit-content;
+    padding: 5px;
+    border: 2px solid black;
+    background-color: lightgrey;
+    color: black;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: medium;
+    text-transform: uppercase;
+}
+
+.error, .error2{
+    color: red;
+    margin-bottom: 20px;
+    /* display: none; */
+}
+
+@media only screen and (max-width: 1000px) {
+    .container, .container-1{
+        width: 90%;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+    body{
+        display: block;
+    }
+
+    .container{
+        margin-bottom: 100px;
+    }
+}
+  
+
+

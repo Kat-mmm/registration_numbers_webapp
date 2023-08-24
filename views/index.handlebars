@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="registration_numbers.css">
+    <title>Registration Numbers</title>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <form action="/reg_numbers" method="POST">
+                <label for="reg">Registration Number:</label>
+                <div class="error">
+                    {{#if messages.error}}
+                        <div class="entry">
+                            <p> {{messages.error}}</p>
+                        </div>
+                    {{/if}}
+                </div>
+                <input class="reg-input" type="text" name="reg" placeholder="e.g. &nbsp; (CA 15688)">
+                <p>Examples of allowed registration numbers:</p>
+                <p style="color: green;" class="eg">(CA 1234, CL 123-456, CF 12345, CJ 123-4)</p>
+                <div class="btns">
+                    <button class="add-btn" type="submit">Add</button>
+                    <button class="clear-btn">Clear</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="bottom">
+            <form action="/reg_numbers/filter" method="POST">
+                <label for="town">Town:</label>
+                <select id="town" name="town">
+                    <option value="">--Select Town--</option>
+                    <option value="Cape Town">Cape Town</option>
+                    <option value="Paarl">Paarl</option>
+                    <option value="Kuils River">Kuils River</option>
+                    <option value="Stellenbosch">Stellenbosch</option>
+                </select>
+                <button class="filter-btn" type="submit">Show</button>
+            </form>
+        </div>
+
+        <div class="plates">
+            {{#each registration_numbers}}
+                <div class="item">{{this.registration_number}}</div>
+            {{/each}}
+        </div>
+    </div>
+</body>
+<script defer>
+    let errorEl = document.querySelector('.error');
+
+    setTimeout(() =>{
+        errorEl.style.display = 'none';
+    }, 2000);
+</script>
+</html>
