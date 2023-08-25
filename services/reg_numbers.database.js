@@ -1,20 +1,4 @@
-import pgPromise from 'pg-promise';
-import 'dotenv/config';
-
-const username = 'postgres';
-const password = process.env.Password;
-const host = 'localhost';
-const port = 5432;
-const databaseName = 'reg_testdb';
-
-const encodedUsername = encodeURIComponent(username);
-const encodedPassword = encodeURIComponent(password);
-
-const connection = process.env.DATABASE_URL || `postgresql://${encodedUsername}:${encodedPassword}@${host}:${port}/${databaseName}`;
-
-const db = pgPromise()(connection);
-
-export default function RegNumbersDatabase(){
+export default function RegNumbersDatabase(db){
     async function addRegNumber(regNumber){
         try{
             let prefix = regNumber.slice(0, 2).toUpperCase();
@@ -55,6 +39,6 @@ export default function RegNumbersDatabase(){
         addRegNumber,
         getAllRegNumbers,
         filteredRegNumbers,
-        getRegistration
+        getRegistration,
     }
 }

@@ -9,7 +9,13 @@
 <body>
     <div class="container">
         <div class="plates">
-            <div class="item">{{chosenReg.registration_number}}</div>
+            <div class="item">
+                {{#if chosenReg.registration_number}}
+                    {{chosenReg.registration_number}}
+                {{else}}
+                    Registration number not found!
+                {{/if}}
+            </div>
         </div>
     </div>
 </body>

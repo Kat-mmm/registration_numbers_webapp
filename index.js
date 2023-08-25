@@ -4,11 +4,28 @@ import bodyParser from 'body-parser';
 import flash from 'express-flash';
 import session from 'express-session';
 import RegistrationNumbers from './reg_numbers.js';
-import RegNumbersDatabase from './model/reg_numbers.database.js';
+import RegNumbersRoutes from './routes/registration.js';
+import pgPromise from 'pg-promise';
+import 'dotenv/config';
+import RegNumbersDatabase from './services/reg_numbers.database.js';
+
+const username = 'postgres';
+const password = process.env.Password;
+const host = 'localhost';
+const port = 5432;
+const databaseName = 'reg_testdb';
+
+const encodedUsername = encodeURIComponent(username);
+const encodedPassword = encodeURIComponent(password);
+
+const connection = process.env.DATABASE_URL || `postgresql://${encodedUsername}:${encodedPassword}@${host}:${port}/${databaseName}`;
+
+const db = pgPromise()(connection);
 
 let app = express();
-let regNumbersFactory = RegistrationNumbers();
-let db = RegNumbersDatabase();
+let regFactory = RegistrationNumbers();
+let regNumberdb = RegNumbersDatabase(db);
+let regNumbersRoutes = RegNumbersRoutes(regNumberdb, regFactory);
 
 app.engine('handlebars', engine({ defaultLayout: false }));
 app.set('view engine', 'handlebars');
@@ -23,52 +40,13 @@ app.use(session({
 }));
 app.use(flash());
 
-app.get('/', async function (req, res) {
-    let town = regNumbersFactory.getTown();
+app.get('/', regNumbersRoutes.index)
 
-    let addedRegNumbers = await db.getAllRegNumbers();
-    let filteredRegNumbers = await db.filteredRegNumbers(town);
+app.get('/reg_number/:reg_number', regNumbersRoutes.getRegistration)
 
-    // let registration_numbers = [];
-    // if(town === ''){
+app.post('/reg_numbers', regNumbersRoutes.addRegistration)
 
-    // }
-
-    res.render('index', {
-        registration_numbers: filteredRegNumbers || addedRegNumbers,
-    })
-})
-
-app.get('/reg_number/:reg_number', async function (req, res) {
-    let regNumber = req.params.reg_number;
-
-    let chosenReg = await db.getRegistration(regNumber);
-
-    res.render('reg_number', {chosenReg})
-})
-
-app.post('/reg_numbers', async function (req, res) {
-    regNumbersFactory.setRegNumber(req.body.reg);
-
-    const regex = /^(CA|CF|CL|CJ)\s\d{3}(-?\d{1,3})$/i;
-    let regNumber = regNumbersFactory.getRegNumber();
-
-    if(regNumber !== '' && regex.test(regNumber)){
-        await db.addRegNumber(regNumber);
-    }
-    else{
-        req.flash('error', regNumbersFactory.addRegNumber());
-    }
-    
-    res.redirect('/')
-})
-
-app.post('/reg_numbers/filter', function (req, res) {
-    let town = req.body.town;
-    regNumbersFactory.setTown(town);
-
-    res.redirect('/')
-})
+app.post('/reg_numbers/filter', regNumbersRoutes.filterRegs)
 
 let PORT = process.env.PORT || 3000;
 
