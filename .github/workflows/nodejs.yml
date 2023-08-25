@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      DATABASE_URL: postgres://lgjvxtqa:HIP0bscrm-56KBlSEXZbuCi6sPTIdQGf@bubble.db.elephantsql.com/lgjvxtqa
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -23,5 +26,7 @@ jobs:
 
       - name: Run tests
         run: npm test
+        env:
+          DATABASE_URL: postgres://lgjvxtqa:HIP0bscrm-56KBlSEXZbuCi6sPTIdQGf@bubble.db.elephantsql.com/lgjvxtqa
 
       # Additional steps for build, deployment, etc. can be added here

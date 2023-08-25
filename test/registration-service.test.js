@@ -4,7 +4,7 @@ import RegNumbersDatabase from '../services/reg_numbers.database.js';
 
 const password = process.env.Password;
 
-const connection = process.env.DATABASE_URL || `postgresql://postgres:${password}@localhost:5432/reg_testdb`;
+const connection = process.env.DATABASE_URL || `postgresql://postgres:Delegates13@localhost:5432/reg_testdb`;
 
 const db = pgPromise()(connection);
 
