@@ -41,10 +41,17 @@ export default function RegNumbersRoutes(regNumbersService, regNumbersFactory){
         res.redirect('/')
     }
 
+    async function deleteRegs(req, res) {
+        regNumbersService.clearRegistrations();
+
+        res.redirect('/')
+    }
+
     return{
         index,
         getRegistration,
         addRegistration,
-        filterRegs
+        filterRegs,
+        deleteRegs
     }
 }

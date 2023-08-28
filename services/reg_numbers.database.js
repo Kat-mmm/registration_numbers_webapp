@@ -35,10 +35,15 @@ export default function RegNumbersDatabase(db){
         return result;
     }
 
+    async function clearRegistrations(){
+        await db.none("TRUNCATE TABLE registration_numbers RESTART IDENTITY CASCADE;");
+    }
+
     return{
         addRegNumber,
         getAllRegNumbers,
         filteredRegNumbers,
         getRegistration,
+        clearRegistrations
     }
 }

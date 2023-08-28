@@ -48,6 +48,8 @@ app.post('/reg_numbers', regNumbersRoutes.addRegistration)
 
 app.post('/reg_numbers/filter', regNumbersRoutes.filterRegs)
 
+app.post('/reg_numbers/clear', regNumbersRoutes.deleteRegs)
+
 let PORT = process.env.PORT || 3000;
 
 app.listen(PORT, function(){
